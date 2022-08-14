@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hugoandrada.movieapp.data.model.Movie
-import com.hugoandrada.movieapp.databinding.ItemMovieBinding
+import com.hugoandrada.movieapp.databinding.ItemMoviesBinding
 
 class MainAdapter(private val movieList: List<Movie>,
                   private val movieClickListener: OnMovieClickListener) :
@@ -16,7 +16,7 @@ class MainAdapter(private val movieList: List<Movie>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemMoviesBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return MainViewHolder(binding)
     }
 
@@ -32,7 +32,7 @@ class MainAdapter(private val movieList: List<Movie>,
         return movieList.size
     }
 
-    inner class MainViewHolder(private val binding: ItemMovieBinding) :
+    inner class MainViewHolder(private val binding: ItemMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(movie: Movie){
                 Glide.with(binding.root.context)
