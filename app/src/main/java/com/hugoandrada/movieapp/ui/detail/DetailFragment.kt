@@ -18,18 +18,18 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         Glide.with(requireContext())
             .load("https://image.tmdb.org/t/p/w500/${args.backdropPath}")
-            .centerCrop().into(binding.moviePosterDetail)
+            .centerCrop().into(binding.moviePosterBack)
         Glide.with(requireContext())
             .load("https://image.tmdb.org/t/p/w500/${args.posterPath}")
-            .centerCrop().into(binding.movieCoverDetail)
+            .centerCrop().into(binding.moviePosterFront)
 
-        binding.movieTitleDetail.text = args.title
-        binding.movieVoteDetail.text = "${args.voteAverage} Rating."
-        binding.moviePopularityDetail.text = "${args.popularity} Calificaciones."
+        binding.movieTitle.text = args.title
+        binding.movieRating.text = "${args.voteAverage} Rating."
+        binding.movieComentarios.text = "${args.popularity} Calificaciones."
         if (args.overview.isEmpty()) {
-            binding.movieOverviewDetail.text = "No contiene informacion."
+            binding.movieDescripcion.text = "No contiene informacion."
         } else {
-            binding.movieOverviewDetail.text = args.overview
+            binding.movieDescripcion.text = args.overview
         }
 
     }
