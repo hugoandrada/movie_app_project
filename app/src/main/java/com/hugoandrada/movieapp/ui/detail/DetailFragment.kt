@@ -7,7 +7,9 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.hugoandrada.movieapp.R
 import com.hugoandrada.movieapp.databinding.FragmentDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private lateinit var binding: FragmentDetailBinding

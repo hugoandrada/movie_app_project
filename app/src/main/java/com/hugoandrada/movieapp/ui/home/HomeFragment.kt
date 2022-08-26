@@ -9,21 +9,17 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.hugoandrada.movieapp.R
 import com.hugoandrada.movieapp.data.model.Movie
-import com.hugoandrada.movieapp.data.remote.DataSourceImplement
 import com.hugoandrada.movieapp.databinding.FragmentHomeBinding
 import com.hugoandrada.movieapp.presentation.MovieViewModel
-import com.hugoandrada.movieapp.presentation.MovieViewModelFactory
-import com.hugoandrada.movieapp.repository.RetrofitClient
-import com.hugoandrada.movieapp.repository.repo.RepoImplement
 import com.hugoandrada.movieapp.ui.adapter.MainAdapter
 import com.hugoandrada.movieapp.utils.Resource
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home), MainAdapter.OnMovieClickListener {
 
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel by viewModels<MovieViewModel> {
-        MovieViewModelFactory(RepoImplement(DataSourceImplement(RetrofitClient.webservice)))
-    }
+    private val viewModel by viewModels<MovieViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
