@@ -1,4 +1,4 @@
-package com.hugoandrada.movieapp.activity
+package com.hugoandrada.movieapp.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

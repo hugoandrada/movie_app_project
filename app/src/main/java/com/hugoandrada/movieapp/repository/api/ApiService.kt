@@ -5,7 +5,7 @@ import com.hugoandrada.movieapp.utils.AppConstants
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface WebService {
+interface ApiService {
 
     @GET(AppConstants.END_POINT)
     suspend fun getMovies(

@@ -1,7 +1,7 @@
 package com.hugoandrada.movieapp.di
 
 import com.google.gson.GsonBuilder
-import com.hugoandrada.movieapp.repository.api.WebService
+import com.hugoandrada.movieapp.repository.api.ApiService
 import com.hugoandrada.movieapp.utils.AppConstants
 import dagger.Module
 import dagger.Provides
@@ -17,10 +17,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRetrofitClient() : WebService =
+    fun provideRetrofitClient() : ApiService =
         Retrofit.Builder()
             .baseUrl(AppConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
-            .create(WebService::class.java)
+            .create(ApiService::class.java)
 }
