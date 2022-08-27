@@ -17,6 +17,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoritosFragment"
+            app:destination="@id/favoritosFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -41,5 +44,13 @@
         <argument
             android:name="overview"
             app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/favoritosFragment"
+        android:name="com.hugoandrada.movieapp.ui.favoritos.FavoritosFragment"
+        android:label="Favoritos"
+        tools:layout="@layout/fragment_favoritos" />
 </navigation>

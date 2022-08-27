@@ -1,6 +1,5 @@
 package com.hugoandrada.movieapp.data.model
 
-
 data class Movie(
     val id: Int = -1,
     val title: String,
@@ -12,5 +11,5 @@ data class Movie(
 )
 
 data class MovieList(
-    val results: List<Movie> = listOf()
+    val results: MutableList<Movie> = mutableListOf()
 )

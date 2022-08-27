@@ -7,42 +7,45 @@ import com.bumptech.glide.Glide
 import com.hugoandrada.movieapp.data.model.Movie
 import com.hugoandrada.movieapp.databinding.ItemMoviesBinding
 
-class MainAdapter(
-    private val movieList: List<Movie>,
-    private val movieClickListener: OnMovieClickListener
+class FavoritosAdapter(
+    private val movieList: MutableList<Movie>,
+    private val onMovieFavClick: OnMovieFavClickListener
 ) :
-    RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+    RecyclerView.Adapter<FavoritosAdapter.FavViewHolder>() {
 
-    interface OnMovieClickListener {
-        fun movieClicked(movie: Movie)
+    interface OnMovieFavClickListener {
+        fun onMovieClicked(movie: Movie, position: Int)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavViewHolder {
         val binding = ItemMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainViewHolder(binding)
+        return FavViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavViewHolder, position: Int) {
         val movie = movieList[position]
-        holder.bind(movie)
-        holder.itemView.setOnClickListener {
-            movieClickListener.movieClicked(movie)
-        }
+        holder.bind(movie,position)
     }
 
     override fun getItemCount(): Int {
         return movieList.size
     }
 
-    inner class MainViewHolder(private val binding: ItemMoviesBinding) :
+    inner class FavViewHolder(private val binding: ItemMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movie) {
+        fun bind(movie: Movie, position: Int) {
             Glide.with(binding.root.context)
                 .load("https://image.tmdb.org/t/p/w500/${movie.poster_path}")
                 .centerCrop()
                 .into(binding.movieCover)
             binding.movieTitle.text = movie.title
             binding.movieOverview.text = movie.overview
+
+            binding.root.setOnClickListener {
+                onMovieFavClick.onMovieClicked(movie, position)
+                movieList.removeAt(position)
+                notifyDataSetChanged()
+            }
         }
     }
 }
