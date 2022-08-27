@@ -1,4 +1,4 @@
-package com.hugoandrada.movieapp.repository.api
+package com.hugoandrada.movieapp.repo.api
 
 import com.hugoandrada.movieapp.data.model.MovieList
 import com.hugoandrada.movieapp.utils.AppConstants

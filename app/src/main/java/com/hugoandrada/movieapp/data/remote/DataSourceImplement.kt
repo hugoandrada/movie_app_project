@@ -1,7 +1,7 @@
 package com.hugoandrada.movieapp.data.remote
 
 import com.hugoandrada.movieapp.data.model.MovieList
-import com.hugoandrada.movieapp.repository.api.ApiService
+import com.hugoandrada.movieapp.repo.api.ApiService
 import com.hugoandrada.movieapp.utils.AppConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

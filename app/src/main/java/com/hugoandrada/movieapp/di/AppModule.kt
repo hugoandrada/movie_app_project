@@ -1,7 +1,7 @@
 package com.hugoandrada.movieapp.di
 
 import com.google.gson.GsonBuilder
-import com.hugoandrada.movieapp.repository.api.ApiService
+import com.hugoandrada.movieapp.repo.api.ApiService
 import com.hugoandrada.movieapp.utils.AppConstants
 import dagger.Module
 import dagger.Provides

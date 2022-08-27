@@ -3,7 +3,7 @@ package com.hugoandrada.movieapp.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.hugoandrada.movieapp.repository.repo.MovieRepository
+import com.hugoandrada.movieapp.repo.remote.MovieRepository
 import com.hugoandrada.movieapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

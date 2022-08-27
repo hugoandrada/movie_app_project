@@ -1,4 +1,4 @@
-package com.hugoandrada.movieapp.repository.repo
+package com.hugoandrada.movieapp.repo.remote
 
 import com.hugoandrada.movieapp.data.model.MovieList
 import com.hugoandrada.movieapp.data.remote.DataSourceImplement

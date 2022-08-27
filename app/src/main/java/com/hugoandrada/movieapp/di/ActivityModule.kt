@@ -2,8 +2,8 @@ package com.hugoandrada.movieapp.di
 
 import com.hugoandrada.movieapp.data.remote.DataSourceImplement
 import com.hugoandrada.movieapp.data.remote.MovieDataSource
-import com.hugoandrada.movieapp.repository.repo.MovieRepository
-import com.hugoandrada.movieapp.repository.repo.RepoImplement
+import com.hugoandrada.movieapp.repo.remote.MovieRepository
+import com.hugoandrada.movieapp.repo.remote.RepoImplement
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
