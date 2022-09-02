@@ -3,10 +3,10 @@ package com.hugoandrada.movieapp.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.hugoandrada.movieapp.data.model.Movie
 import com.hugoandrada.movieapp.databinding.ItemMoviesBinding
 import com.hugoandrada.movieapp.utils.AppConstants
+import com.hugoandrada.movieapp.utils.Extensions.loadImage
 
 class FavoritosAdapter(
     private val movieList: MutableList<Movie>,
@@ -36,10 +36,7 @@ class FavoritosAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: Movie, position: Int) {
-            Glide.with(binding.root.context)
-                .load("${AppConstants.IMAGE_URL}${movie.poster_path}")
-                .fitCenter()
-                .into(binding.movieCover)
+            binding.movieCover.loadImage("${AppConstants.IMAGE_URL}${movie.poster_path}")
             binding.movieTitle.text = movie.title
             binding.movieOverview.text = movie.overview
 

@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.hugoandrada.movieapp.data.model.Movie
 import com.hugoandrada.movieapp.databinding.ItemMoviesBinding
 import com.hugoandrada.movieapp.utils.AppConstants
+import com.hugoandrada.movieapp.utils.Extensions.loadImage
 
 class MainAdapter(private val movieClickListener: OnMovieClickListener
 ) : ListAdapter<Movie, MainAdapter.MainViewHolder>(MainDiffUtilCallback) {
@@ -43,10 +43,7 @@ class MainAdapter(private val movieClickListener: OnMovieClickListener
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: Movie) {
-            Glide.with(binding.root.context)
-                .load("${AppConstants.IMAGE_URL}${movie.poster_path}")
-                .fitCenter()
-                .into(binding.movieCover)
+            binding.movieCover.loadImage("${AppConstants.IMAGE_URL}${movie.poster_path}")
             binding.movieTitle.text = movie.title
             binding.movieOverview.text = movie.overview
         }

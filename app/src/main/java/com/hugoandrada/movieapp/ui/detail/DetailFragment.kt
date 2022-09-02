@@ -6,12 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.hugoandrada.movieapp.R
 import com.hugoandrada.movieapp.data.local.MovieEntity
 import com.hugoandrada.movieapp.databinding.FragmentDetailBinding
 import com.hugoandrada.movieapp.presentation.LocalMovieViewModel
 import com.hugoandrada.movieapp.utils.AppConstants
+import com.hugoandrada.movieapp.utils.Extensions.loadImage
 import com.hugoandrada.movieapp.utils.Extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,15 +28,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         binding = FragmentDetailBinding.bind(view)
         setupBotonSaveFavorito()
 
-        Glide.with(requireContext())
-            .load("${AppConstants.IMAGE_URL}${args.backdropPath}")
-            .fitCenter()
-            .into(binding.moviePosterBack)
-
-        Glide.with(requireContext())
-            .load("${AppConstants.IMAGE_URL}${args.posterPath}")
-            .fitCenter()
-            .into(binding.moviePosterFront)
+        binding.moviePosterBack.loadImage("${AppConstants.IMAGE_URL}${args.backdropPath}")
+        binding.moviePosterFront.loadImage("${AppConstants.IMAGE_URL}${args.posterPath}")
 
         binding.movieTitle.text = args.title
         binding.movieRating.text = "${args.voteAverage} ${AppConstants.RATING}"
