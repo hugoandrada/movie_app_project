@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hugoandrada.movieapp.data.model.Movie
 import com.hugoandrada.movieapp.databinding.ItemMoviesBinding
+import com.hugoandrada.movieapp.utils.AppConstants
 
 class FavoritosAdapter(
     private val movieList: MutableList<Movie>,
@@ -33,10 +34,11 @@ class FavoritosAdapter(
 
     inner class FavViewHolder(private val binding: ItemMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(movie: Movie, position: Int) {
             Glide.with(binding.root.context)
-                .load("https://image.tmdb.org/t/p/w500/${movie.poster_path}")
-                .centerCrop()
+                .load("${AppConstants.IMAGE_URL}${movie.poster_path}")
+                .fitCenter()
                 .into(binding.movieCover)
             binding.movieTitle.text = movie.title
             binding.movieOverview.text = movie.overview

@@ -2,16 +2,25 @@ package com.hugoandrada.movieapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hugoandrada.movieapp.data.model.Movie
 import com.hugoandrada.movieapp.databinding.ItemMoviesBinding
+import com.hugoandrada.movieapp.utils.AppConstants
 
-class MainAdapter(
-    private val movieList: List<Movie>,
-    private val movieClickListener: OnMovieClickListener
-) :
-    RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+class MainAdapter(private val movieClickListener: OnMovieClickListener
+) : ListAdapter<Movie, MainAdapter.MainViewHolder>(MainDiffUtilCallback) {
+
+    object MainDiffUtilCallback: DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
+        }
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem.id == newItem.id
+        }
+    }
 
     interface OnMovieClickListener {
         fun movieClicked(movie: Movie)
@@ -23,23 +32,20 @@ class MainAdapter(
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val movie = movieList[position]
+        val movie = getItem(position)
         holder.bind(movie)
         holder.itemView.setOnClickListener {
             movieClickListener.movieClicked(movie)
         }
     }
 
-    override fun getItemCount(): Int {
-        return movieList.size
-    }
-
     inner class MainViewHolder(private val binding: ItemMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(movie: Movie) {
             Glide.with(binding.root.context)
-                .load("https://image.tmdb.org/t/p/w500/${movie.poster_path}")
-                .centerCrop()
+                .load("${AppConstants.IMAGE_URL}${movie.poster_path}")
+                .fitCenter()
                 .into(binding.movieCover)
             binding.movieTitle.text = movie.title
             binding.movieOverview.text = movie.overview

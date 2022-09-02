@@ -3,7 +3,6 @@ package com.hugoandrada.movieapp.ui.favoritos
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.hugoandrada.movieapp.R
@@ -12,6 +11,9 @@ import com.hugoandrada.movieapp.data.model.Movie
 import com.hugoandrada.movieapp.databinding.FragmentFavoritosBinding
 import com.hugoandrada.movieapp.presentation.LocalMovieViewModel
 import com.hugoandrada.movieapp.ui.adapter.FavoritosAdapter
+import com.hugoandrada.movieapp.utils.AppConstants
+import com.hugoandrada.movieapp.utils.Extensions.show
+import com.hugoandrada.movieapp.utils.Extensions.toast
 import com.hugoandrada.movieapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +24,7 @@ class FavoritosFragment : Fragment(R.layout.fragment_favoritos),
     private lateinit var binding: FragmentFavoritosBinding
     private val localViewModel: LocalMovieViewModel by viewModels()
     private lateinit var favoritosAdapter: FavoritosAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentFavoritosBinding.bind(view)
@@ -36,13 +39,15 @@ class FavoritosFragment : Fragment(R.layout.fragment_favoritos),
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     if (result.data.results.isEmpty()) {
-                        binding.emptyView.visibility = View.VISIBLE
+                        binding.emptyView.show()
                     } else {
                         binding.rvFavoritos.adapter =
                             FavoritosAdapter(result.data.results, this)
                     }
                 }
-                is Resource.Failure -> {}
+                is Resource.Failure -> {
+                    toast(AppConstants.ERROR_TOAST)
+                }
             }
         })
     }
@@ -65,10 +70,6 @@ class FavoritosFragment : Fragment(R.layout.fragment_favoritos),
                 movie.overview
             )
         )
-        Toast.makeText(
-            requireContext(),
-            "se elimino de favoritos ${movie.title}",
-            Toast.LENGTH_SHORT
-        ).show()
+        toast("${AppConstants.FAV_TOAST_DELETE} ${movie.title}")
     }
 }

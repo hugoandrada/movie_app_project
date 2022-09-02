@@ -1,16 +1,18 @@
 package com.hugoandrada.movieapp.ui.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.hugoandrada.movieapp.R
 import com.hugoandrada.movieapp.data.local.MovieEntity
 import com.hugoandrada.movieapp.databinding.FragmentDetailBinding
 import com.hugoandrada.movieapp.presentation.LocalMovieViewModel
+import com.hugoandrada.movieapp.utils.AppConstants
+import com.hugoandrada.movieapp.utils.Extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,23 +21,28 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private lateinit var binding: FragmentDetailBinding
     private val localViewModel: LocalMovieViewModel by viewModels()
     private val args by navArgs<DetailFragmentArgs>()
+
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailBinding.bind(view)
         setupBotonSaveFavorito()
 
         Glide.with(requireContext())
-            .load("https://image.tmdb.org/t/p/w500/${args.backdropPath}")
-            .centerCrop().into(binding.moviePosterBack)
+            .load("${AppConstants.IMAGE_URL}${args.backdropPath}")
+            .fitCenter()
+            .into(binding.moviePosterBack)
+
         Glide.with(requireContext())
-            .load("https://image.tmdb.org/t/p/w500/${args.posterPath}")
-            .centerCrop().into(binding.moviePosterFront)
+            .load("${AppConstants.IMAGE_URL}${args.posterPath}")
+            .fitCenter()
+            .into(binding.moviePosterFront)
 
         binding.movieTitle.text = args.title
-        binding.movieRating.text = "${args.voteAverage} Rating."
-        binding.movieComentarios.text = "${args.popularity} Calificaciones."
+        binding.movieRating.text = "${args.voteAverage} ${AppConstants.RATING}"
+        binding.movieComentarios.text = "${args.popularity} ${AppConstants.VOTES}"
         if (args.overview.isEmpty()) {
-            binding.movieDescripcion.text = "No contiene informacion."
+            binding.movieDescripcion.text = AppConstants.EMPTY_VIEW
         } else {
             binding.movieDescripcion.text = args.overview
         }
@@ -55,12 +62,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     args.overview
                 )
             )
-            Snackbar.make(
-                binding.root,
-                "se guardo en favoritos ${args.title}",
-                Snackbar.LENGTH_SHORT
-            )
-                .show()
+            toast("${AppConstants.FAV_TOAST} ${args.title}")
         }
     }
 }

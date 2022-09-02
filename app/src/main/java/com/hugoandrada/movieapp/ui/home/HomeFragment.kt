@@ -11,6 +11,8 @@ import com.hugoandrada.movieapp.data.model.Movie
 import com.hugoandrada.movieapp.databinding.FragmentHomeBinding
 import com.hugoandrada.movieapp.presentation.MovieViewModel
 import com.hugoandrada.movieapp.ui.adapter.MainAdapter
+import com.hugoandrada.movieapp.utils.Extensions.gone
+import com.hugoandrada.movieapp.utils.Extensions.show
 import com.hugoandrada.movieapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +27,7 @@ class HomeFragment : Fragment(R.layout.fragment_home),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
-        mainAdapter = MainAdapter(listOf(), this)
+        mainAdapter = MainAdapter( this)
         setupRv()
         setupObserver()
         setupBtnFav()
@@ -47,14 +49,14 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         movieViewModel.fetchMovies().observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.show()
                 }
                 is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    binding.rvHome.adapter = MainAdapter(result.data.results, this)
+                    binding.progressBar.gone()
+                    mainAdapter.submitList(result.data.results)
                 }
                 is Resource.Failure -> {
-                    binding.progressBar.visibility = View.GONE
+                    binding.progressBar.gone()
                 }
             }
         })
