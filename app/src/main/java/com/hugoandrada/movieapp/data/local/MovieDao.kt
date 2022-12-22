@@ -9,7 +9,7 @@ interface MovieDao {
     suspend fun insertMovieRoom(movieEntity: MovieEntity)
 
     @Query("SELECT * FROM favoritos")
-    suspend fun getMovieRoom() : MutableList<MovieEntity>
+    suspend fun getMovieRoom() : List<MovieEntity>
 
     @Delete
     suspend fun deleteMovieRoom(movieEntity: MovieEntity)

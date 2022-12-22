@@ -24,6 +24,18 @@ data class MovieEntity(
     val overview: String
 )
 
+fun Movie.toMovieEntity(): MovieEntity {
+    return MovieEntity(
+        id = id,
+        title = title,
+        poster_path = poster_path,
+        backdrop_path = backdrop_path,
+        popularity = popularity,
+        vote_average = vote_average,
+        overview = overview
+    )
+}
+
 fun MovieEntity.toMovie(): Movie = Movie(
     id = id,
     title = title,
